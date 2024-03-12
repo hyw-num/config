@@ -1,48 +1,208 @@
--- Install Packer automatically if it's not installed(Bootstraping)
--- Hint: string concatenation is done by `..`
-local ensure_packer = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-        vim.cmd [[packadd packer.nvim]]
-        return true
-    end
-    return false
+-- Install Lazy.nvim automatically if it's not installed(Bootstraping)
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
-local packer_bootstrap = ensure_packer()
+vim.opt.rtp:prepend(lazypath)
 
-
--- Reload configurations if we modify plugins.lua
--- Hint
---     <afile> - replaced with the filename of the buffer being manipulated
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
-
-
--- Install plugins here - `use ...`
--- Packer.nvim hints
---     after = string or list,           -- Specifies plugins to load before this plugin. See "sequencing" below
---     config = string or function,      -- Specifies code to run after this plugin is loaded
---     requires = string or list,        -- Specifies plugin dependencies. See "dependencies".
---     ft = string or list,              -- Specifies filetypes which load this plugin.
---     run = string, function, or table, -- Specify operations to be run after successful installs/updates of a plugin
-return require('packer').startup(function(use)
-        -- Packer can manage itself
-        use 'wbthomason/packer.nvim'
-
-        ---------------------------------------
-        -- NOTE: PUT YOUR THIRD PLUGIN HERE --
-        ---------------------------------------
-
-        -- Automatically set up your configuration after cloning packer.nvim
-        -- Put this at the end after all plugins
-        if packer_bootstrap then
-            require('packer').sync()
+-- After installation, run `checkhealth lazy` to see if everything goes right
+-- Hints:
+--     build: it will be executed when a plugin is installed or updated
+--     config: it will be executed when the plugin loads
+--     event: Lazy-load on event
+--     dependencies: A list of plugin names or plugin specs that should be loaded when the plugin loads
+--     ft: Lazy-load on filetype
+--     cmd: Lazy-load on command
+--     init: functions are always executed during startup
+require("lazy").setup({
+	-- LSP manager
+	"williamboman/mason.nvim",
+	"williamboman/mason-lspconfig.nvim",
+	"neovim/nvim-lspconfig",
+	-- Add hooks to LSP to support Linter && Formatter
+	{
+		"jay-babu/mason-null-ls.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		dependencies = {
+			"williamboman/mason.nvim",
+			"nvimtools/none-ls.nvim",
+		},
+		config = function()
+			-- Note:
+			--     the default search path for `require` is ~/.config/nvim/lua
+			--     use a `.` as a path seperator
+			--     the suffix `.lua` is not needed
+			require("config.mason-null-ls")
+		end,
+	},
+	-- Vscode-like pictograms
+	{
+		"onsails/lspkind.nvim",
+		event = { "VimEnter" },
+	},
+	-- Auto-completion engine
+	{
+		"hrsh7th/nvim-cmp",
+		dependencies = { "lspkind.nvim" },
+		config = function()
+			require("config.nvim-cmp")
+		end,
+	},
+	{ "hrsh7th/cmp-nvim-lsp", dependencies = { "nvim-cmp" } },
+	{ "hrsh7th/cmp-buffer", dependencies = { "nvim-cmp" } }, -- buffer auto-completion
+	{ "hrsh7th/cmp-path", dependencies = { "nvim-cmp" } }, -- path auto-completion
+	{ "hrsh7th/cmp-cmdline", dependencies = { "nvim-cmp" } }, -- cmdline auto-completion
+	-- Code snippet engine
+	{
+		"L3MON4D3/LuaSnip",
+		version = "v2.*",
+	},
+	-- Colorscheme
+	"tanvirtin/monokai.nvim",
+	-- Git integration
+	"tpope/vim-fugitive",
+	-- Git decorations
+	{
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("config.gitsigns")
+		end,
+	},
+	-- Autopairs: [], (), "", '', etc
+	{
+		"windwp/nvim-autopairs",
+		event = "InsertEnter",
+		config = function()
+			require("config.nvim-autopairs")
+		end,
+	},
+	-- Code comment helper
+	--     1. `gcc` to comment a line
+	--     2. select lines in visual mode and run `gc` to comment/uncomment lines
+	"tpope/vim-commentary",
+	-- Treesitter-integration
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		config = function()
+			require("config.nvim-treesitter")
+		end,
+	},
+	-- Nvim-treesitter text objects
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+        config = function ()
+            require("config.nvim-treesitter-textobjects")
         end
-    end)
-
+	},
+	-- Show indentation and blankline
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		config = function()
+			require("config.indent-blankline")
+		end,
+	},
+	-- Status line
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("config.lualine")
+		end,
+	},
+	-- Markdown support
+	{ "preservim/vim-markdown", ft = { "markdown" } },
+	-- Markdown previewer
+	-- NOTE: It require nodejs and yarn. Use homebrew to install first
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		build = "cd app && yarn install",
+		init = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
+	},
+	-- File explorer
+	{
+		"nvim-tree/nvim-tree.lua",
+		dependencies = {
+			"nvim-tree/nvim-web-devicons", -- optional, for file icons
+		},
+		config = function()
+			require("config.nvim-tree")
+		end,
+	},
+	-- Smart motion
+	-- Usage: Enter 2-character search pattern then press a label character to
+	--        pick your target.
+	--        Initiate the sesarch with `s`(forward) or `S`(backward)
+	{
+		"ggandor/leap.nvim",
+		config = function()
+			-- See `:h leap-custom-mappings` for more details
+			require("leap").create_default_mappings()
+		end,
+	},
+	-- Make surrounding easier
+	-- ------------------------------------------------------------------
+	-- Old text                    Command         New text
+	-- ------------------------------------------------------------------
+	-- surr*ound_words             gziw)           (surround_words)
+	-- *make strings               gz$"            "make strings"
+	-- [delete ar*ound me!]        gzd]            delete around me!
+	-- remove <b>HTML t*ags</b>    gzdt            remove HTML tags
+	-- 'change quot*es'            gzc'"           "change quotes"
+	-- delete(functi*on calls)     gzcf            function calls
+	-- ------------------------------------------------------------------
+	{
+		"kylechui/nvim-surround",
+		version = "*", -- Use for stability; omit to use `main` branch for the latest features
+		-- You can use the VeryLazy event for things that can
+		-- load later and are not important for the initial UI
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup({
+				-- To solve the conflicts with leap.nvim
+				-- See: https://github.com/ggandor/leap.nvim/discussions/59
+				keymaps = {
+					insert = "<C-g>z",
+					insert_line = "gC-ggZ",
+					normal = "gz",
+					normal_cur = "gZ",
+					normal_line = "gzgz",
+					normal_cur_line = "gZgZ",
+					visual = "gz",
+					visual_line = "gZ",
+					delete = "gzd",
+					change = "gzc",
+				},
+			})
+		end,
+	},
+	-- Better terminal integration
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		config = function()
+			require("config.toggleterm")
+		end,
+	},
+	-- Fuzzy finder
+	{
+		"nvim-telescope/telescope.nvim",
+		branch = "0.1.x",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("config.telescope")
+		end,
+	},
+})

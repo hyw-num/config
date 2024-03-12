@@ -1,12 +1,48 @@
-## plugins.lua
-一个强大的 Nvim 离不开插件的支持。
-
+## `plugins.lua`
+> 一个强大的 Nvim 离不开插件的支持。
+参考来自@[Martinlwx'github](https://github.com/MartinLwx/dotfiles.git)
 ### 安装插件管理器
+#### 下载`lazy.nvim`
+添加到 `plugins.lua`
+```lua
+-- 下载lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+```
+#### 添加`lazy.nvim`到`init.lua`
+```lua
+require("lazy").setup(plugins, opts)
+```
 
-> Packer.nvim 还支持了不少命令，不过你不需要把他们都记住。因为这个模板会自动帮我们处理好。值得一提的是如果因为网络问题安装失败的话，在它弹出的窗口里面按照提示按下大写的 R 就会自动重新下载。在 Packer.nvim 提示全都安装成功后，重启 Nvim 就生效了
+#### lazy 语法
+- `plugins`: this should be a table or a string
+    - `table`: a list with your Plugin Spec
+    - `string`: a Lua module name that contains your Plugin Spec. See Structuring Your Plugins
+- `opts`: see Configuration (optional)
 
-@[code cpp]()
-### 安装各种 lsp mason
-通过 mason 可以自动的安装各种 lsp， 在 neovim 中执行 :Mason 可以检查各种插件的执行状态。
+``` lua
+-- Example using a list of specs with the default options
+vim.g.mapleader = " " -- Make sure to set `mapleader` before lazy so your mappings are correct
+vim.g.maplocalleader = "\\" -- Same for `maplocalleader`
 
-对于 mason 不支持的 lsp，就需要手动安装了，例如 sudo apt install ccls
+require("lazy").setup({
+  "folke/which-key.nvim",
+  { "folke/neoconf.nvim", cmd = "Neoconf" },
+  "folke/neodev.nvim",
+})
+```
+
+#### 加载各类插件
+
+brew install yarn
+
