@@ -8,7 +8,7 @@ local opts = {
 -- Normal mode --
 -----------------
 
--- Hint: see `:h vim.map.set()`
+-- Hint: see `:h vim.keymap.set()`
 -- Better window navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h", opts)
 vim.keymap.set("n", "<C-j>", "<C-w>j", opts)
@@ -33,3 +33,8 @@ vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 -- Hint: start visual mode with the same area as the previous area and the same mode
 vim.keymap.set("v", "<", "<gv", opts)
 vim.keymap.set("v", ">", ">gv", opts)
+
+
+-- Hint: 
+-- vim.keymap.set("n", "sv", "9k", opts)
+-- vim.keymap.set("n", "sh", "9j", opts)

@@ -11,7 +11,7 @@ require("mason").setup({
 
 require("mason-lspconfig").setup({
 	-- A list of servers to automatically install if they're not already installed
-	ensure_installed = { "pylsp", "gopls", "lua_ls", "bashls", "rust_analyzer" },
+	ensure_installed = { "pylsp", "clangd", "cmake", "gopls", "lua_ls", "bashls", "rust_analyzer" },
 })
 
 -- Set different settings for different languages' LSP
@@ -33,33 +33,39 @@ vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist, opts)
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	-- See `:help vim.lsp.*` for documentation on any of the below functions
 	local bufopts = { noremap = true, silent = true, buffer = bufnr }
+	-- 跳转到声明
 	vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+	-- 跳转到定义
 	vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+	-- 显示注释文档
 	vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+	-- 跳转到实现
 	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+	-- 显示标志帮助
 	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+	-- 添加文档位置到工作区
 	vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-	vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
-	vim.keymap.set("n", "<space>wl", function()
+	-- 移除文档位置到工作区
+    vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+	-- 列举出所有的工作文档
+    vim.keymap.set("n", "<space>wl", function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, bufopts)
+
 	vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
+	-- 重命名变量
 	vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, bufopts)
+	--
 	vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, bufopts)
+
 	vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
-	vim.keymap.set("n", "<space>f", function()
-		vim.lsp.buf.format({
-			async = true,
-			-- Only request null-ls for formatting
-			filter = function(client)
-				return client.name == "null-ls"
-			end,
-		})
-	end, bufopts)
+	-- 格式化文档
+    vim.keymap.set("n", "<space>f", function()
+		vim.lsp.buf.format({ async = true })
+	end, opts)
 end
 
 -- Configure each language
@@ -71,6 +77,9 @@ lspconfig.pylsp.setup({
 })
 
 lspconfig.gopls.setup({
+	on_attach = on_attach,
+})
+lspconfig.cmake.setup({
 	on_attach = on_attach,
 })
 

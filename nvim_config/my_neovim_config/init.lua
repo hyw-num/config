@@ -15,4 +15,4 @@ require('colorscheme')
 
 
 -- Set LSP
--- require('lsp')
+require('lsp')
