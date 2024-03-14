@@ -7,11 +7,7 @@ if [ $# -eq 2 ];then
     cd ~/"$remotename" || return 
     git add .
     git commit -m "$commitname"
-    spawn git push "$remotename" main
-    expect "Username for 'https://github.com': "
-    send "$user\r"
-    expect "Password for 'https://$user@github.com': "
-    send "$pass\r"
+    git push "$remotename" main
 
 elif [ $# -eq 1 ];then
     remotename=$1
@@ -22,11 +18,7 @@ elif [ $# -eq 1 ];then
     echo "$date"
     git add .
     git commit -m "$date"
-    spawn git push "$remotename" main
-    expect "Username for 'https://github.com': "
-    send "$user\r"
-    expect "Password for 'https://$user@github.com': "
-    send "$pass\r"
+    git push "$remotename" main
 else
     echo "wrong order"
 fi
