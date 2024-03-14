@@ -1,5 +1,5 @@
 # 
-alias chrome=" /mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe"
+alias web="/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe --app "
 # 向日葵用户登陆
 alias cpSun.psd='sed -n "2,2p" ~/info/sunlogin.txt | xsel -b'
 alias cpSun.usr='sed -n "1,1p" ~/info/sunlogin.txt | xsel -b'  
@@ -27,3 +27,6 @@ alias repo="~/config/autoSh/openrep.sh"
 alias gitpush="~/config/autoSh/gitpush.sh"
 # main conputer
 export winhome=/mnt/c/Users/45399/Desktop
+
+# gitpush 命令
+alias gitpush="~/config/autoSh/gitpush.sh"
