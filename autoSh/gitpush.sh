@@ -1,4 +1,8 @@
-cd ~/$2
+commitname=\'$1\'
+
+remotename=$2
+echo $commitname
+cd ~/$remotename
 git add .
-git commit -m '$1'
-git push $2 main
+git commit -m "$commitname"
+git push $remotename main
