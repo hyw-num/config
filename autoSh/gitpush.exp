@@ -1,7 +1,9 @@
 expect <<END     
     set timeout 300
-    set user $1
-    set pass $2
+    set user [lindex $argv 1]
+    set pass [lindex $argv 2]
+    set repo [lindex $argv 3]
+    puts "$repo"
     puts "$user"
     puts "$pass"
     spawn git push "$3" main
