@@ -5,8 +5,6 @@ expect <<END
     spawn git push "$3" main
     expect "Username for 'https://github.com': "
     send "$user\r"
-    puts $user
     expect "Password for 'https://github.com': "
     send "$pass\r"
-    puts $pass
 END
