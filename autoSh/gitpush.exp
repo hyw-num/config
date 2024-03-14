@@ -1,7 +1,10 @@
-expect <<END    
-    spawn sudo echo "1234"
-    expect "[sudo] password for hyw: " 
-    send "llllll\r"
-    expect eof
-    
+expect <<END     
+    set timeout 300
+    set user $1
+    set pass $2
+    spawn git push "$3" main
+    expect "Username for 'https://github.com': "
+    send "$user\r"
+    expect "Password for 'https://$user@github.com': "
+    send "$pass\r"
 END
