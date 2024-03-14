@@ -1,5 +1,5 @@
 # 
-alias web="/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe --app "
+alias web="/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe  "
 # 向日葵用户登陆
 alias cpSun.psd='sed -n "2,2p" ~/info/sunlogin.txt | xsel -b'
 alias cpSun.usr='sed -n "1,1p" ~/info/sunlogin.txt | xsel -b'  
