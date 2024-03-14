@@ -36,5 +36,7 @@ vim.keymap.set("v", ">", ">gv", opts)
 
 
 -- Hint: 
--- vim.keymap.set("n", "sv", "9k", opts)
--- vim.keymap.set("n", "sh", "9j", opts)
+vim.keymap.set({'i', 'c'}, '<C-v>', '<C-r>+')
+vim.keymap.set('v', '<C-v>', '"*p')
+vim.keymap.set('t', '<C-v>', '<C-\\><C-n>"+pa')
+vim.keymap.set('v', '<C-c>', '"+y')
