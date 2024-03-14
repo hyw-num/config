@@ -1,2 +1,7 @@
-spawn echo "123"
-expect eof
+expect <<END    
+    spawn sudo echo "1234"
+    expect "[sudo] password for hyw: " 
+    send "llllll\r"
+    expect eof
+    
+END
