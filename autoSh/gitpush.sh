@@ -7,8 +7,7 @@ if [ $# -eq 2 ];then
     cd ~/"$remotename" || return 
     git add .
     git commit -m "$commitname"
-    git push "$remotename" main
-
+    ~/config/autoSh/gitpush.exp $user $pass $remotename
 elif [ $# -eq 1 ];then
     remotename=$1
 # order
@@ -18,7 +17,7 @@ elif [ $# -eq 1 ];then
     echo "$date"
     git add .
     git commit -m "$date"
-    git push "$remotename" main
+    ~/config/autoSh/gitpush.exp $user $pass $remotename
 else
     echo "wrong order"
 fi
