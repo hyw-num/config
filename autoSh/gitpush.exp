@@ -2,8 +2,8 @@ expect <<END
     set timeout 300
     set user $1
     set pass $2
-    puts $user
-    puts $pass
+    puts "$user"
+    puts "$pass"
     spawn git push "$3" main
     expect "Username for 'https://github.com': "
     send "$user\r"
