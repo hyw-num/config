@@ -10,4 +10,5 @@ expect "Username for 'https://github.com':"
 send "$user\r"
 expect "Password for 'https://$user@github.com':"
 send "$pass\r"
+sleep 1
 interact
