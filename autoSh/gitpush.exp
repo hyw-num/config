@@ -1,18 +1,13 @@
 set user [lindex $argv 0]
 set pass [lindex $argv 1]
 set repo [lindex $argv 2]
- 
-expect <<END     
-    set timeout 300
-    # set user [lindex $argv 0]
-    # set pass [lindex $argv 1]
-    # set repo [lindex $argv 2]
-    # puts "$repo"
-    puts "$user"
-    puts "$pass"
-    # spawn git push "$repo" main
-    # expect "Username for 'https://github.com': "
-    # send "$user\r"
-    # expect "Password for 'https://github.com': "
-    # send "$pass\r"
-END
+set timeout 300
+puts "$repo"
+puts "$user"
+puts "$pass"
+spawn git push "$repo" main
+expect "Username for 'https://github.com': "
+send "$user\r"
+expect "Password for 'https://github.com': "
+send "$pass\r"
+interact
