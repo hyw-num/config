@@ -22,3 +22,6 @@ alias gitunproxy="git config --global --unset http.proxy;git config --global --u
 export myConfigPath=~/config/nvim_config/my_neovim_config
 export configPath=~/config
 export infoPath=~/info
+# repo
+alias repo="~/config/autoSh/openrep.sh"
+alias gitpush="~/config/autoSh/gitpush.sh"
