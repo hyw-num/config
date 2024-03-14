@@ -25,3 +25,5 @@ export infoPath=~/info
 # repo
 alias repo="~/config/autoSh/openrep.sh"
 alias gitpush="~/config/autoSh/gitpush.sh"
+# main conputer
+export winhome=/mnt/c/Users/45399/Desktop
