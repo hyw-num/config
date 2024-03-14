@@ -8,6 +8,6 @@ puts "$pass"
 spawn git push "$repo" main
 expect "Username for 'https://github.com': "
 send "$user\r"
-expect "Password for 'https://github.com': "
+expect "Password for 'https://$user@github.com': "
 send "$pass\r"
 interact
