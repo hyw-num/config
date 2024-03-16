@@ -31,6 +31,8 @@ export winhome=/mnt/c/Users/45399/Desktop
 # gitpush 命令
 alias gitpush="~/config/autoSh/gitpush.sh"
 
+alias gitcheck="~/config/autoSh/gitcheck.sh"
+
 
 # 放入剪切板
 alias clip="~/config/autoSh/clip.sh"
