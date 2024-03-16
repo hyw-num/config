@@ -1,0 +1,4 @@
+## windows
+`terminal`、`chrome`
+## linux
+`anaconda`、`nvim`、`gcc`、`node`、`expect`、`tcl`
