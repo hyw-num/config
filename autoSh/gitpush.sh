@@ -1,5 +1,5 @@
 user=hyw-num
-pass=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
+pass=token
 if [ $# -eq 2 ];then
     commitname=$1
     remotename=$2

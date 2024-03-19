@@ -31,3 +31,9 @@ ssh-add ~/.ssh/github_auth
 ```shell
 cat ~/.ssh/id_ed25519.pub | xsel -b 
 ```
+## 查看结果
+```shell
+ssh -T git@github.com
+# 如果输出以下内容，则表示配置成功，此时即可直接进行任何git操作。
+# Hi xxx! You've successfully authenticated, but GitHub does not provide shell access.
+```
