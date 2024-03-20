@@ -1,2 +1,6 @@
+# 私人文件
 info/
+# 音乐库
 navidrome/music
+# 书库
+ebook/calibre-docker/books
