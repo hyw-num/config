@@ -43,9 +43,6 @@ export music=~/config/navidrome/music
 alias clip="~/config/autoSh/clip.sh"
 alias clipdir="~/config/autoSh/clipdir.sh"
 
-# 
-export current=~/cec/graph_split/src
-
 # sshPath
 export sshPath=~/config/info/ssh
 alias sshlist="ls ~/config/info/ssh/"
