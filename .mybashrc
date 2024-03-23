@@ -45,3 +45,11 @@ alias clipdir="~/config/autoSh/clipdir.sh"
 
 # 
 export current=~/cec/graph_split/src
+
+# sshPath
+export sshPath=~/config/info/ssh
+alias sshlist="ls ~/config/info/ssh/"
+alias myssh=~/config/ssh/myssh.sh
+
+# list order
+alias list="cat ~/config/win/order.txt"
