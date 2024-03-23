@@ -1,10 +1,12 @@
+
 # 
 alias web="/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe  "
 # 向日葵用户登陆
 alias cpSun.psd='sed -n "2,2p" ~/info/sunlogin.txt | xsel -b'
 alias cpSun.usr='sed -n "1,1p" ~/info/sunlogin.txt | xsel -b'  
 # gihub 仓库
-github='https://github.com/hyw-num'
+export github='https://github.com/hyw-num'
+export githubSSH='git@github.com:hyw-num'
 alias note='/mnt/c/Program\ Files/Google/Chrome/Application/chrome.exe $github/note'
 host_ip=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
 export proxy_ip=$host_ip
@@ -21,7 +23,6 @@ alias gitunproxy="git config --global --unset http.proxy;git config --global --u
 # configpath
 export myConfigPath=~/config/nvim_config/my_neovim_config
 export configPath=~/config
-export infoPath=~/info
 # repo
 alias repo="~/config/autoSh/openrep.sh"
 alias gitpush="~/config/autoSh/gitpush.sh"
@@ -32,8 +33,12 @@ export winhome=/mnt/c/Users/45399/Desktop
 alias gitpush="~/config/autoSh/gitpush.sh"
 
 alias gitcheck="~/config/autoSh/gitcheck.sh"
-
-
+# gitconfig
+alias gitpulldirs="~/config/autoSh/gitpulldirs.sh"
+# git ignore repo
+export book=~/config/ebook/calibre-docker/books
+export info=~/config/info
+export music=~/config/navidrome/music
 # 放入剪切板
 alias clip="~/config/autoSh/clip.sh"
 alias clipdir="~/config/autoSh/clipdir.sh"
