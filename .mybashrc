@@ -36,7 +36,7 @@ alias gitcheck="~/config/autoSh/gitcheck.sh"
 # gitconfig
 alias gitpulldirs="~/config/autoSh/gitpulldirs.sh"
 # git ignore repo
-export book=~/config/ebook/calibre-docker/books
+export book=~/config/ebook/books
 export info=~/config/info
 export music=~/config/navidrome/music
 # 放入剪切板
