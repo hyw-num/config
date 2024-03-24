@@ -1,4 +1,6 @@
 ## windows
-`terminal`、`chrome`
+`terminal`、`chrome`、`zotera`、`picgo`、`wps`、`docker`
+## tecent
+`qq`、`wexin`、`qyweixin`、`meeting`、`dingding`
 ## linux
-`anaconda`、`nvim`、`gcc`、`node`、`expect`、`tcl`
+`anaconda`、`openssh-client`、`cmake`、`nvim`、`gcc`、`yarn`、`npm`、`git`、`golang`、`go`、`node`、`neovim`、`expect`、`tcl`

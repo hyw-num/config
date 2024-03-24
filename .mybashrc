@@ -55,4 +55,5 @@ alias list="cat ~/config/win/order.txt"
 # get Windows IP
 export HostIp=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
 
-service ssh status
+
+~/config/autoSh/sshauto.sh
