@@ -28,7 +28,7 @@ alias repo="~/config/autoSh/openrep.sh"
 alias gitpush="~/config/autoSh/gitpush.sh"
 # main conputer
 export winhome=/mnt/c/Users/45399/Desktop
-
+export winRealHome='C:/Users/45399/Desktop'
 # gitpush 命令
 alias gitpush="~/config/autoSh/gitpush.sh"
 
