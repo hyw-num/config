@@ -5,5 +5,12 @@ expect -c "
     \"password for\" { send \"$passwd\r\" ; }
     \"Starting OpenBSD Secure Shell server sshd\" { }
 }
+
+    spawn sudo service ssh status
+    expect {
+    \"password for\" { send \"$passwd\r\" ; }
+    \"Starting OpenBSD Secure Shell server sshd\" { }
+}
+
 expect EOF 
 "

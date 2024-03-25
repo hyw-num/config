@@ -11,7 +11,8 @@ require("mason").setup({
 
 require("mason-lspconfig").setup({
 	-- A list of servers to automatically install if they're not already installed
-	ensure_installed = { "pylsp", "clangd", "cmake", "gopls", "lua_ls", "bashls", "rust_analyzer" },
+	ensure_installed = { "jsonls","html",
+    "pylsp", "clangd", "cmake", "gopls", "lua_ls", "bashls", "rust_analyzer" },
 })
 
 -- Set different settings for different languages' LSP
@@ -72,6 +73,12 @@ end
 -- How to add LSP for a specific language?
 -- 1. use `:Mason` to install corresponding LSP
 -- 2. add configuration below
+lspconfig.html.setup({
+    on_attach=on_attach,
+})
+lspconfig.jsonls.setup({
+    on_attach=on_attach,
+})
 lspconfig.pylsp.setup({
 	on_attach = on_attach,
 })
