@@ -48,12 +48,23 @@ export sshPath=~/config/info/ssh
 alias sshlist="ls ~/config/info/ssh/"
 alias myssh=~/config/ssh/myssh.sh
 alias myscp=~/config/ssh/myscp.sh
-
+alias changeIp=~/config/ssh/change.sh
 # list order
 alias list="cat ~/config/win/order.txt"
 
 # get Windows IP
 export HostIp=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
+# get LAN-IP
+export Lan_ip=$(~/config/autoSh/LAN-ip.sh)
 
+# 变量: 
+export LC_ALL=zh_CN.UTF-8
+# time
+export today=$(date +%Y%m%d)
+# email
+alias email=~/config/email/email.sh
 
+# sendIp
+alias sendip=~/config/autoSh/sendIp.sh
+############################################################ run
 ~/config/autoSh/sshauto.sh
