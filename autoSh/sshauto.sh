@@ -5,11 +5,11 @@ function run(){
     expect -c "
         spawn sudo  $order 
         expect {
-        \"password for\" { send \"$passwd\r\" ; puts \"ok\" ;  exp_continue }
-        \"Starting OpenBSD Secure Shell server sshd\" { }
+        \"password for\" { send \"$passwd\r\" ; puts \"ok\" ; }
     }
     expect EOF 
 "
 }
 
-run "sudo service ssh start"
+run "service ssh start"
+ps -ef | grep ssh
