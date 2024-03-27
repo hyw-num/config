@@ -1,5 +1,6 @@
 ipPath=~/config/info/ip/ip
-toPath=$winRealHome/ip_$today
-echo $Lan_ip > $ipPath 
+toPath=$winRealHome/
+LanIp=$(curl ip.sb)
+echo "$LanIp" > $ipPath 
 ~/config/ssh/myscp.sh $ipPath 608 $toPath
-mv $winhome/ip_$today ~/config/info/ip/ 
+mv $winhome/ip ~/config/info/ip/ip_$today

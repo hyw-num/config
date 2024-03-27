@@ -13,9 +13,8 @@
 Include /etc/ssh/sshd_config.d/*.conf
 
 #ListenAddress 0.0.0.0
-Port 2222
+Port 2223
 ListenAddress 0.0.0.0
-PasswordAuthentication yes
 #ListenAddress ::
 
 #HostKey /etc/ssh/ssh_host_rsa_key
@@ -37,7 +36,7 @@ PermitRootLogin yes #prohibit-password
 #MaxAuthTries 6
 #MaxSessions 10
 
-#PubkeyAuthentication yes
+PubkeyAuthentication yes
 
 # Expect .ssh/authorized_keys2 to be disregarded by default in future.
 #AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2
@@ -98,11 +97,11 @@ PrintMotd no
 #TCPKeepAlive yes
 #PermitUserEnvironment no
 #Compression delayed
-#ClientAliveInterval 0
-#ClientAliveCountMax 3
+#ClientAliveInterval 20
+#ClientAliveCountMax 20
 #UseDNS no
 #PidFile /run/sshd.pid
-#MaxStartups 10:30:100
+#MaxStartups 20:30:50
 #PermitTunnel no
 #ChrootDirectory none
 #VersionAddendum none

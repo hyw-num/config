@@ -54,11 +54,9 @@ alias list="cat ~/config/win/order.txt"
 
 # get Windows IP
 export HostIp=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
-# get LAN-IP
-export Lan_ip=$(~/config/autoSh/LAN-ip.sh)
 
 # 变量: 
-export LC_ALL=zh_CN.UTF-8
+# export LC_ALL=zh_CN.UTF-8
 # time
 export today=$(date +%Y%m%d)
 # email
