@@ -54,7 +54,7 @@ alias list="cat ~/config/win/order.txt"
 
 # get Windows IP
 export HostIp=$(cat /etc/resolv.conf |grep "nameserver" |cut -f 2 -d " ")
-
+export wslIp=$(ifconfig |grep -E "broadcast" |awk '{ print $2 }')
 # 变量: 
 # export LC_ALL=zh_CN.UTF-8
 # time
